@@ -77,7 +77,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$ <span id="ticketSubTotal">00</span></p>
+                        <p> <span id="ticketSubTotal">$ 00</span></p>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p><span id="vatCount">$ 00</span></p>
                     </div>
                 </div>
                 <hr>
@@ -95,11 +95,11 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p><span id="grandTotalPrice">$00</span> </p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button class="btn-style" onclick="successFunction()">Book Now</button>
         </div>
 
         <div class="booking-content">
@@ -123,32 +123,38 @@
                 countTicketNew = countTicket -1;
             }
             ticket.value = countTicketNew;
-            // let ticketPrice = 0 ;
-            // if(ticketType== 'first'){
-            //     ticketPrice = countTicketNew * 150;
-            // }
-            // if(ticketType == 'economy'){
-            //     ticketPrice = countTicketNew * 100;
-            // }
-            //  document.getElementById('ticketSubTotal').innerText = ticketPrice;
              calculateTicketPrice ();
         };
         
          /* **************************************************************
-           function for calculate  subtotal vat and total amount
+           function for calculate  subtotal ,vat and total
       ************************************************************** */
         function calculateTicketPrice (){
             const firstTicketInput = document.getElementById('first-ticketCount');
-            const firstTicketCount = parseInt(firstTicketInput);
+            const firstTicketCount = parseInt(firstTicketInput.value);
 
             const ecoTicketInput = document.getElementById('economy-ticketCount');
-            const ecoTicketCount = parseInt(ecoTicketInput);
+            const ecoTicketCount = parseInt(ecoTicketInput.value);
 
             const subTotalPrice = firstTicketCount * 150 + ecoTicketCount * 100;
-            document.getElementById('ticketSubTotal').innerText = subTotalPrice;
+            document.getElementById('ticketSubTotal').innerText = '$' + subTotalPrice;
+
+            const Vat = subTotalPrice * 0.1;
+             document.getElementById('vatCount').innerText = '$' + Vat;
+
+             const finalTotal = subTotalPrice + Vat;
+             document.getElementById('grandTotalPrice').innerText = '$' +finalTotal;
 
         }
-  
+
+        /* **************************************************************
+           function for alert
+      ************************************************************** */
+        function successFunction() {
+       alert("Your Ticket Have been booked!");
+}
+
+         
     </script>
 
 </body>
