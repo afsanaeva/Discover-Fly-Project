@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Booking</title>
@@ -12,6 +11,7 @@
         rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+ 
 </head>
 
 <body>
@@ -33,7 +33,7 @@
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
-                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
             </div>
             <div class="input-group">
                 <label for="">Flying To</label>
@@ -52,20 +52,23 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                  
+                    <input id="first-ticketCount" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn">
-                    <p>+ -</p>
+                <div>
+                    <input onclick="handleTicketCount('first',true)" type="button" value="+" class="plus">
+                    <input onclick="handleTicketCount('first',false)" type="button" value="-" class="minus">
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economy-ticketCount" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                <div>
+                    <input onclick="handleTicketCount('economy',true)" type="button" value="+" class="plus">
+                    <input onclick="handleTicketCount('economy',false)" type="button" value="-" class="minus">
                 </div>
             </div>
             <div class="calculations">
@@ -74,7 +77,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$ <span id="ticketSubTotal">00</span></p>
                     </div>
                 </div>
 
@@ -105,8 +108,49 @@
         </div>
     </section>
 
-    <!--Thank You-->
-    <script src="script.js"></script>
+    <script>    
+     /* **************************************************************
+           function for decrease and increase
+      ************************************************************** */
+        function handleTicketCount ( ticketType,isIncrease){
+            const ticket = document.getElementById(ticketType +'-ticketCount')
+            const countTicket = parseInt(ticket.value)
+            let countTicketNew = countTicket;
+            if(isIncrease == true){
+                countTicketNew = countTicket + 1;
+            }
+            if(isIncrease == false && countTicket>0 ){
+                countTicketNew = countTicket -1;
+            }
+            ticket.value = countTicketNew;
+            // let ticketPrice = 0 ;
+            // if(ticketType== 'first'){
+            //     ticketPrice = countTicketNew * 150;
+            // }
+            // if(ticketType == 'economy'){
+            //     ticketPrice = countTicketNew * 100;
+            // }
+            //  document.getElementById('ticketSubTotal').innerText = ticketPrice;
+             calculateTicketPrice ();
+        };
+        
+         /* **************************************************************
+           function for calculate  subtotal vat and total amount
+      ************************************************************** */
+        function calculateTicketPrice (){
+            const firstTicketInput = document.getElementById('first-ticketCount');
+            const firstTicketCount = parseInt(firstTicketInput);
+
+            const ecoTicketInput = document.getElementById('economy-ticketCount');
+            const ecoTicketCount = parseInt(ecoTicketInput);
+
+            const subTotalPrice = firstTicketCount * 150 + ecoTicketCount * 100;
+            document.getElementById('ticketSubTotal').innerText = subTotalPrice;
+
+        }
+  
+    </script>
+
 </body>
 
 </html>
